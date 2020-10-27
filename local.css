@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 12px;
+    padding: 10px;
+}
+
+
+/* Track */
+
+ ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, .1);
+    padding: 10px;
+}
+
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
+    background: #888;
+    margin: 10px;
+    border-radius: 15px;
+}
+
+
+/* Handle on hover */
+
+ ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+body,
+html {
+    width: 100vw;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+}
+
+main {
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+#editor {
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+#editor button {
+    padding: 4px 16px;
+    margin: 5px;
+}
+
+#cfg {
+    display: flex;
+    background: #232323;
+    color: #fff;
+    padding: 5px 10px;
+    width: 100%;
+    height: 100%;
+    font-size: 18px;
+    resize: none;
+    border-radius: 0;
+}
+
+#navbar {
+    overflow-x: auto;
+    overflow-y: scroll;
+    background: #555;
+    color: #fff;
+    height: calc(100%);
+    display: flex;
+    flex-flow: column;
+}
+
+#navbar>input {
+    padding: 10px 5px;
+    margin: 10px;
+}
+
+#navbar>div {
+    padding: 10px;
+    cursor: pointer;
+}
+
+#navbar>div.active {
+    background: rgba(55, 55, 55, .8);
+}
+
+#navbar>div:hover {
+    background: rgba(55, 55, 55, .5);
+}
+
+#search_modal {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    transform: translate3d(calc(-100% - 10px), 10px, 0);
+    background: rgba(0, 0, 0, .8);
+    border: 2px solid salmon;
+    color: #fff;
+    padding: 15px;
+    display: none;
+}
+
+#search_modal input {
+    background: rgba(255, 255, 255, 0);
+    color: salmon;
+    border: 2px solid salmon;
+    padding: 10px 5px;
+}

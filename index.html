@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta name=viewport content="width=device-width, initial-scale=1.0">
+    <title>MoistBoat</title>
+    <link rel=stylesheet href=local.css>
+
+</head>
+
+<body>
+    <main>
+        <div id="navbar">
+            <input id="search" type="search">
+            <div id="plane_list"> __name__
+            </div>
+        </div>
+
+        <div id="editor">
+            <div>
+                <button id="save">SAVE</button>
+            </div>
+            <textarea spellcheck="false" id="cfg" contenteditable="true" class="lang-js"></textarea>
+        </div>
+    </main>
+
+
+    <div id="search_modal" aria-hidden="true">
+        <input type="text" id="search_modal_input" placeholder="search" />
+    </div>
+
+
+    <!-- You can also require other files to run in this process -->
+    <script src="./rplc8.js"></script>
+    <script src="./renderer.js"></script>
+    <script src="hotkeys.min.js"></script>
+    <script src=local.js></script>
+</body>
+
+</html>
