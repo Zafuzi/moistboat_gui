@@ -100,7 +100,7 @@ main {
     background: rgba(55, 55, 55, .5);
 }
 
-#search_modal {
+#message_modal {
     position: absolute;
     top: 0;
     left: 100%;
@@ -110,11 +110,4 @@ main {
     color: #fff;
     padding: 15px;
     display: none;
-}
-
-#search_modal input {
-    background: rgba(255, 255, 255, 0);
-    color: salmon;
-    border: 2px solid salmon;
-    padding: 10px 5px;
 }

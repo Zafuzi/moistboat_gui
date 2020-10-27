@@ -1,6 +1,6 @@
 let planes = [];
 let plane_list;
-let editor, search, cfg, save;
+let editor, search, cfg, save, message_modal;
 
 let active_plane_name = "";
 
@@ -9,8 +9,9 @@ document.addEventListener("DOMContentLoaded", dcl => {
     plane_list = rplc8("#plane_list");
     editor = document.querySelector("#editor");
     cfg = document.querySelector("#cfg");
-    search = document.querySelector("#search")
-    save = document.querySelector("#save")
+    search = document.querySelector("#search");
+    save = document.querySelector("#save");
+    message_modal = rplc8("#message_modal");
 
     search.addEventListener("input", e => {
         let o = planes.filter(p => {
@@ -80,13 +81,15 @@ window.api.receive("list_planes", (data) => {
 });
 
 window.api.receive("alert", (data) => {
-    alert(data);
+    message_modal.update([{ message: data }]);
+    document.querySelector("#message_modal").style.display = "block";
+    let x = setInterval(() => {
+        document.querySelector("#message_modal").style.display = "none";
+        clearInterval(x);
+    }, 3000)
+    cfg.focus();
 });
 
 window.api.receive("get_cfg", (data) => {
     cfg.innerHTML = data;
-
-    document.querySelectorAll('#cfg').forEach(block => {
-        console.log(block)
-    })
 });

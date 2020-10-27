@@ -18,7 +18,6 @@ contextBridge.exposeInMainWorld(
         },
         receive: (channel, func) => {
             let validChannels = ["list_planes", "get_cfg", "alert"];
-            console.log(channel, func);
             if (validChannels.includes(channel)) {
                 // Deliberately strip event as it includes `sender` 
                 ipcRenderer.on(channel, (event, ...args) => func(...args));

@@ -7,13 +7,6 @@ const runq = require("runq");
 const electron = require("electron");
 const url = require("url");
 
-try {
-    require('electron-reloader')(module, {
-        debug: true,
-        watchRenderer: true
-    });
-} catch (_) { console.log('Error'); }
-
 const fs = require("fs");
 var regedit = require('regedit')
 
@@ -54,7 +47,6 @@ rq.add(cb => {
 })
 
 rq.add(cb => {
-    console.log(fsx_install_path)
     fsx_airplanes_path = fsx_install_path + "/SimObjects/Airplanes";
     filenames = fs.readdirSync(fsx_airplanes_path);
     cb();
@@ -145,7 +137,7 @@ function createWindow() {
             slashes: true
         }))
         // Open the DevTools.
-        //mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
