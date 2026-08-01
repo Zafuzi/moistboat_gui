@@ -1,5 +1,4 @@
 // Modules to control application life and create native browser window
-const { fail } = require('assert');
 const { app, BrowserWindow, protocol, ipcMain } = require('electron');
 const path = require('path');
 const { exit } = require('process');
@@ -8,14 +7,16 @@ const electron = require("electron");
 const url = require("url");
 
 const fs = require("fs");
+const SteamPath = require("steam-path");
+
 var regedit = require('regedit')
 
 function isOSWin64() {
 	return process.arch === 'x64' || process.env.hasOwnProperty('PROCESSOR_ARCHITEW6432');
 }
-let steam_path = "HKLM\\SOFTWARE\\WOW6432Node\\DovetailGames\\FSX";
 
-let steam_install_path = "";
+const FSX_APP_ID = 314160;
+
 let fsx_install_path = "";
 let fsx_airplanes_path = "";
 
@@ -24,23 +25,36 @@ let filenames = [];
 let rq = runq();
 
 rq.add(cb => {
-	regedit.list(steam_path, function (err, result) {
-		steam_install_path = result[steam_path].values.install_path.value;
+	SteamPath.getAppPath(FSX_APP_ID)
+		.then(p => {
+			if (!fsx_install_path?.path) {
+				console.debug("Install path not found");
+				return;
+			}
 
-		if (!fs.existsSync(steam_install_path)) {
-			fail();
-			exit(0);
-		} else {
-			fsx_install_path = steam_install_path;
-		}
-
-		cb();
-	})
+			try {
+				if (fs.existsSync(fsx_install_path?.path)) {
+					fsx_install_path = p;
+				}
+			} catch (e) {
+				console.debug(e);
+				return;
+			}
+		})
+		.catch(e => {
+			console.debug(e);
+		})
+		.finally(cb)
 })
 
 rq.add(cb => {
 	fsx_airplanes_path = fsx_install_path + "/SimObjects/Airplanes";
-	filenames = fs.readdirSync(fsx_airplanes_path);
+	try {
+		filenames = fs.readdirSync(fsx_airplanes_path);
+	} catch (e) {
+		console.debug(e);
+	}
+
 	cb();
 })
 
@@ -129,7 +143,7 @@ function createWindow() {
 		slashes: true
 	}))
 	// Open the DevTools.
-	mainWindow.webContents.openDevTools()
+	// mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
@@ -147,6 +161,7 @@ app.whenReady().then(() => {
 		})
 
 		createWindow()
+
 		app.on('activate', function () {
 			// On macOS it's common to re-create a window in the app when the
 			// dock icon is clicked and there are no other windows open.

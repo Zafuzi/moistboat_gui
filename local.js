@@ -63,6 +63,7 @@ function update_planes(data) {
     data.forEach(d => {
         a.push({ name: d });
     })
+
     plane_list.update(a, (e, d, i) => {
         e.addEventListener("click", () => {
             window.api.send("get_cfg", d.name);
